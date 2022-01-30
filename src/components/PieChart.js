@@ -3,20 +3,14 @@ import React from "react";
 class PieChart extends React.Component {
   constructor(props) {
     super(props);
-    const categories = Object.keys(props.data);
-    const values = [];
-    console.log(props.dataValue);
-    categories.map((category) => {
-      values.push(props.data[category][props.dataValue]);
-    });
     this.state = {
-      series: values,
+      series: [],
       options: {
         chart: {
           width: 380,
           type: "pie",
         },
-        labels: categories,
+        labels: Object.keys(this.props.data),
         responsive: [
           {
             breakpoint: 480,
@@ -34,6 +28,28 @@ class PieChart extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const categories = Object.keys(this.props.data);
+    const values = [];
+    categories.map((category) => {
+      values.push(this.props.data[category][this.props.dataValue]);
+      this.setState({ series: values });
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.data !== this.props.data ||
+      prevProps.dataValue !== this.props.dataValue
+    ) {
+      const categories = Object.keys(this.props.data);
+      const values = [];
+      categories.map((category) => {
+        values.push(this.props.data[category][this.props.dataValue]);
+        this.setState({ series: values });
+      });
+    }
+  }
   render() {
     return (
       <Chart

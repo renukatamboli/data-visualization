@@ -82,11 +82,11 @@ class Graphs extends React.Component {
       });
     }
     if (
-      ((prevState.filter !== this.state.filter &&
-        this.state.datetimeField !== "") ||
-        (prevState.datetimeField !== this.state.datetimeField &&
-          this.state.filter !== "")) &&
-      this.state.dataValueField !== ""
+      ((this.state.datetimeField !== prevState.datetimeField &&
+        this.state.dataValueField !== "") ||
+        (this.state.dataValueField !== prevState.dataValueField &&
+          this.state.datetimeField !== "")) &&
+      this.state.filter !== ""
     ) {
       this.setState({
         aggregateData: aggregateDataByDateFilter(
@@ -104,6 +104,7 @@ class Graphs extends React.Component {
       this.props.data
     );
     const filters = ["by month", "by year"];
+
     return (
       <div className={classes.root}>
         <div className={classes.fields}>
@@ -150,6 +151,7 @@ class Graphs extends React.Component {
           </div>
         </div>
         <div>
+          {console.log(this.state.aggregateData)}
           {this.state.graph === "pie" ? (
             <PieChart
               data={this.state.aggregateData}
