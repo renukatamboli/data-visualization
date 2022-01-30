@@ -4,8 +4,6 @@ import { aggregateDataBy, IdentifyFields } from "./DataAggregation";
 class BarGraph extends React.Component {
   constructor(props) {
     super(props);
-
-    console.log(props.data);
     this.state = {
       series: [
         {
@@ -57,14 +55,7 @@ class BarGraph extends React.Component {
         },
         xaxis: {
           type: "datetime",
-          categories: [
-            "01/01/2011 GMT",
-            "01/02/2011 GMT",
-            "01/03/2011 GMT",
-            "01/04/2011 GMT",
-            "01/05/2011 GMT",
-            "01/06/2011 GMT",
-          ],
+          categories: Object.keys(props.data),
         },
         legend: {
           position: "right",
@@ -75,6 +66,38 @@ class BarGraph extends React.Component {
         },
       },
     };
+  }
+
+  componentDidMount() {
+    const time = Object.keys(this.props.data);
+    const values = [];
+    time.map((timeValue) => {
+      const categories = Object.keys(
+        this.props.data[timeValue][this.props.category]
+      );
+      categories.map((category) => {
+        values.push(
+          this.props.data[timeValue][this.props.category][category][
+            this.props.dataValue
+          ]
+        );
+      });
+      this.setState({ series: values });
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.data !== this.props.data ||
+      prevProps.dataValue !== this.props.dataValue
+    ) {
+      const categories = Object.keys(this.props.data);
+      const values = [];
+      categories.map((category) => {
+        values.push(this.props.data[category][this.props.dataValue]);
+        this.setState({ series: values });
+      });
+    }
   }
   render() {
     return (

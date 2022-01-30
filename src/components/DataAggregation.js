@@ -1,3 +1,5 @@
+import { Category } from "@material-ui/icons";
+
 export function IdentifyFields(data) {
   const fields = Object.keys(data[0]);
   let datetimeFields = [];
@@ -43,7 +45,12 @@ export function aggregateDataByCategory(data, groupByField, dataValueField) {
   return aggregatedData;
 }
 
-export function aggregateDataByDateFilter(filter, data, groupByField) {
+export function aggregateDataByDateFilter(
+  filter,
+  data,
+  groupByField,
+  category
+) {
   const aggregatedData = {};
   const { datetimeFields, dataValueFields, categoryFields } =
     IdentifyFields(data);
@@ -55,18 +62,46 @@ export function aggregateDataByDateFilter(filter, data, groupByField) {
     } else {
       datefilter = date[3];
     }
-    dataValueFields.map((dataValueField) => {
-      if (aggregatedData.hasOwnProperty(datefilter)) {
-        if (!aggregatedData[datefilter].hasOwnProperty(dataValueField)) {
-          aggregatedData[datefilter][dataValueField] = 0;
+    if (aggregatedData.hasOwnProperty(datefilter)) {
+      if (aggregatedData[datefilter].hasOwnProperty(category)) {
+        if (
+          aggregatedData[datefilter][category].hasOwnProperty(
+            dataValues[category]
+          )
+        ) {
+          dataValueFields.map((dataValueField) => {
+            if (
+              aggregatedData[datefilter][category][
+                dataValues[category]
+              ].hasOwnProperty(dataValueField)
+            ) {
+              if (
+                !aggregatedData[datefilter][category][
+                  dataValues[category]
+                ].hasOwnProperty(dataValueField)
+              ) {
+                aggregatedData[datefilter][category][dataValues[category]][
+                  dataValueField
+                ] = 0;
+              }
+              aggregatedData[datefilter][category][dataValues[category]][
+                dataValueField
+              ] += parseFloat(dataValues[dataValueField]);
+            } else {
+              aggregatedData[datefilter][category][dataValues[category]][
+                dataValueField
+              ] = 0;
+            }
+          });
+        } else {
+          aggregatedData[datefilter][category][dataValues[category]] = {};
         }
-        aggregatedData[datefilter][dataValueField] += parseFloat(
-          dataValues[dataValueField]
-        );
       } else {
-        aggregatedData[datefilter] = {};
+        aggregatedData[datefilter][category] = {};
       }
-    });
+    } else {
+      aggregatedData[datefilter] = {};
+    }
   });
   return aggregatedData;
 }

@@ -82,17 +82,29 @@ class Graphs extends React.Component {
       });
     }
     if (
-      ((this.state.datetimeField !== prevState.datetimeField &&
-        this.state.dataValueField !== "") ||
-        (this.state.dataValueField !== prevState.dataValueField &&
-          this.state.datetimeField !== "")) &&
-      this.state.filter !== ""
+      (this.state.datetimeField !== prevState.datetimeField &&
+        this.state.categoryField !== "" &&
+        this.state.dataValueField !== "" &&
+        this.state.filter !== "") ||
+      (this.state.dataValueField !== prevState.dataValueField &&
+        this.state.datetimeField !== "" &&
+        this.state.categoryField !== "" &&
+        this.state.filter !== "") ||
+      (this.state.categoryField !== prevState.categoryField &&
+        this.state.datetimeField !== "" &&
+        this.state.dataValueField !== "" &&
+        this.state.filter !== "") ||
+      (this.state.filter !== prevState.filter &&
+        this.state.datetimeField !== "" &&
+        this.state.dataValueField !== "" &&
+        this.state.categoryField !== "")
     ) {
       this.setState({
         aggregateData: aggregateDataByDateFilter(
           this.state.filter,
           this.props.data,
-          this.state.datetimeField
+          this.state.datetimeField,
+          this.state.categoryField
         ),
         graph: "bar",
       });
@@ -158,7 +170,12 @@ class Graphs extends React.Component {
               dataValue={this.state.dataValueField}
             />
           ) : (
-            <BarGraph />
+            <BarGraph
+              data={this.state.aggregateData}
+              dataValue={this.state.dataValueField}
+              category={this.state.categoryField}
+              datetimeField={this.state.datetimeField}
+            />
           )}
         </div>
       </div>
