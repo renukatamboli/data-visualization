@@ -1,17 +1,22 @@
 import Chart from "react-apexcharts";
 import React from "react";
-class Pie extends React.Component {
+class PieChart extends React.Component {
   constructor(props) {
     super(props);
-
+    const categories = Object.keys(props.data);
+    const values = [];
+    console.log(props.dataValue);
+    categories.map((category) => {
+      values.push(props.data[category][props.dataValue]);
+    });
     this.state = {
-      series: [44, 55, 13, 43, 22],
+      series: values,
       options: {
         chart: {
           width: 380,
           type: "pie",
         },
-        labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+        labels: categories,
         responsive: [
           {
             breakpoint: 480,
@@ -40,3 +45,4 @@ class Pie extends React.Component {
     );
   }
 }
+export default PieChart;

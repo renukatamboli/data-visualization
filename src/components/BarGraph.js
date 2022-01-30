@@ -1,8 +1,11 @@
 import React from "react";
 import Chart from "react-apexcharts";
+import { aggregateDataBy, IdentifyFields } from "./DataAggregation";
 class BarGraph extends React.Component {
   constructor(props) {
     super(props);
+
+    console.log(props.data);
     this.state = {
       series: [
         {

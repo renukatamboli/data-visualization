@@ -1,7 +1,17 @@
-import React, { Component, useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { Component } from "react";
+import { withStyles } from "@material-ui/core/styles";
 import DataTable from "./DataTable";
 import BarGraph from "./BarGraph";
+import PieChart from "./PieChart";
+import Graphs from "./Graphs";
+const styles = (theme) => ({
+  graphs: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: theme.spacing(1),
+  },
+});
 class Home extends Component {
   state = {
     data: "",
@@ -22,26 +32,26 @@ class Home extends Component {
       });
   };
   render() {
+    const { classes } = this.props;
     return (
       <div>
-        <input
-          accept="image/*"
-          id="contained-button-file"
-          multiple
-          type="file"
-          onChange={this.getData}
-        />
-
+        <br />
         {this.state.data !== "" ? (
           <>
-            <BarGraph></BarGraph>
+            <Graphs data={this.state.data} />
             <DataTable data={this.state.data} />{" "}
           </>
         ) : (
-          <></>
+          <input
+            accept="image/*"
+            id="contained-button-file"
+            multiple
+            type="file"
+            onChange={this.getData}
+          />
         )}
       </div>
     );
   }
 }
-export default Home;
+export default withStyles(styles)(Home);
