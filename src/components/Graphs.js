@@ -2,7 +2,6 @@ import BarGraph from "./BarGraph";
 import React from "react";
 import PieChart from "./PieChart";
 import {
-  aggregateDataBy,
   aggregateDataByCategory,
   aggregateDataByDateFilter,
   IdentifyFields,
@@ -163,7 +162,6 @@ class Graphs extends React.Component {
           </div>
         </div>
         <div>
-          {console.log(this.state.aggregateData)}
           {this.state.graph === "pie" ? (
             <PieChart
               data={this.state.aggregateData}
