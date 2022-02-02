@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`match snapshot 1`] = `
+<div>
+  <div
+    class="App"
+  >
+    <div
+      class="makeStyles-root-1"
+      data-testid="nav"
+    >
+      <header
+        class="MuiPaper-root MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary MuiPaper-elevation4"
+      >
+        <div
+          class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
+        />
+      </header>
+    </div>
+    <div
+      data-testid="home"
+    >
+      <br />
+      <input
+        accept="image/*"
+        data-testid="inputFile"
+        id="contained-button-file"
+        multiple=""
+        type="file"
+      />
+    </div>
+  </div>
+</div>
+`;

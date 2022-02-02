@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import DataTable from "./DataTable";
-import BarGraph from "./BarGraph";
-import PieChart from "./PieChart";
 import Graphs from "./Graphs";
 const styles = (theme) => ({
   graphs: {
@@ -19,7 +17,7 @@ class Home extends Component {
   getData = (e) => {
     var formData = new FormData();
     formData.append("file", e.target.files[0]);
-    fetch("http://localhost:8080/api/csv/upload", {
+    return fetch("http://localhost:8080/api/csv/upload", {
       method: "POST",
       body: formData,
     })
@@ -34,7 +32,7 @@ class Home extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div>
+      <div data-testid="home">
         <br />
         {this.state.data !== "" ? (
           <>
@@ -48,6 +46,7 @@ class Home extends Component {
             multiple
             type="file"
             onChange={this.getData}
+            data-testid="inputFile"
           />
         )}
       </div>

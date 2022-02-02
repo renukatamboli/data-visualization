@@ -33,7 +33,7 @@ export default function DataTable(props) {
   };
   const headers = Object.keys(props.data[0]);
   return (
-    <Paper className={classes.root}>
+    <Paper className={classes.root} data-testid="table">
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
