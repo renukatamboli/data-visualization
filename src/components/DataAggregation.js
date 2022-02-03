@@ -6,13 +6,22 @@ export function IdentifyFields(data) {
   let dataValueFields = [];
   let categoryFields = [];
   for (let field of fields) {
-    if (!isNaN(data[0][field])) {
-      dataValueFields.push(field);
+    if (
+      field.includes("date") ||
+      field.includes("year") ||
+      field.includes("time") ||
+      field.includes("month")
+    ) {
+      datetimeFields.push(field);
     } else {
-      if (!isNaN(Date.parse(data[0][field]))) {
-        datetimeFields.push(field);
+      if (!isNaN(data[0][field])) {
+        dataValueFields.push(field);
       } else {
-        categoryFields.push(field);
+        if (!isNaN(Date.parse(data[0][field]))) {
+          datetimeFields.push(field);
+        } else {
+          categoryFields.push(field);
+        }
       }
     }
   }

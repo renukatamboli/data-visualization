@@ -25,7 +25,7 @@ test("match snapshot", () => {
 });
 
 test("fetch call", async () => {
-  const file = new File(["hello"], "test.csv", { type: "csv" });
+  const file = new File(["test"], "test.csv", { type: "csv" });
   render(<Home />);
   const inputElem = screen.getByTestId("inputFile");
   userEvent.upload(inputElem, file);
