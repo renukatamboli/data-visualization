@@ -38,19 +38,19 @@ export default function DataTable(props) {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {headers.map((header) => {
-                return <TableCell>{header}</TableCell>;
+              {headers.map((header, index) => {
+                return <TableCell key={index}>{header}</TableCell>;
               })}
             </TableRow>
           </TableHead>
           <TableBody>
             {props.data
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((dataValue) => {
+              .map((dataValue, index) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1}>
-                    {headers.map((header) => (
-                      <TableCell>{dataValue[header]}</TableCell>
+                  <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                    {headers.map((header, key) => (
+                      <TableCell key={key}>{dataValue[header]}</TableCell>
                     ))}
                   </TableRow>
                 );

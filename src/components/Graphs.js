@@ -117,7 +117,7 @@ class Graphs extends React.Component {
     const filters = ["by month", "by year"];
 
     return (
-      <div className={classes.root}>
+      <div className={classes.root} data-testid="graph">
         <div className={classes.fields}>
           <div>
             <FieldSelection

@@ -35,8 +35,8 @@ export default function FieldSelection(props) {
     <div className={classes.root}>
       <b>{props.fieldType}</b>
       <div className={classes.field}>
-        {props.fields.map((field) => (
-          <div>
+        {props.fields.map((field, index) => (
+          <div key={index}>
             {field}
             <Radio
               checked={selectedValue === field}
