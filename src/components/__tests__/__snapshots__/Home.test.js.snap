@@ -9,7 +9,7 @@ exports[`match snapshot 1`] = `
     <input
       accept="image/*"
       data-testid="inputFile"
-      id="contained-button-file"
+      id="fileUpload"
       multiple=""
       type="file"
     />

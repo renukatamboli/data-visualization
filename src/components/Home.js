@@ -42,7 +42,7 @@ class Home extends Component {
         ) : (
           <input
             accept="image/*"
-            id="contained-button-file"
+            id="fileUpload"
             multiple
             type="file"
             onChange={this.getData}
